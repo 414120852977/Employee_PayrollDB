@@ -56,3 +56,58 @@ mysql> describe employee_payroll;
 | start  | date         | NO   |     | NULL    |                |
 +--------+--------------+------+-----+---------+----------------+
 4 rows in set (0.27 sec)
+
+
+Use case 3 : Ability to create employee
+payroll data in the payroll
+service database as part of
+CURD Operation.
+
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| address_book_service |
+| ashok                |
+| information_schema   |
+| mysql                |
+| payroll_service      |
+| payrollservice       |
+| performance_schema   |
+| sys                  |
++----------------------+
+8 rows in set (0.11 sec)
+
+mysql> use payroll_service;
+Database changed
+mysql> describe employee_payroll;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| id     | int          | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(150) | YES  |     | NULL    |                |
+| salary | double       | NO   |     | NULL    |                |
+| start  | date         | NO   |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+4 rows in set (0.10 sec)
+
+mysql> insert into employee_payroll (name,salary,start) values ("joe",45454.5,2020-02-02);
+ERROR 1292 (22007): Incorrect date value: '2016' for column 'start' at row 1
+mysql> insert into employee_payroll (name,salary,start) values ("joe",45454.5,'2020-02-02');
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into employee_payroll (name,salary,start) values ("donald",4541.25,'2021-02-03');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into employee_payroll (name,salary,start) values ("mukesh",4545255.5,'2020-05-25');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from employee_payroll;
++----+--------+-----------+------------+
+| id | name   | salary    | start      |
++----+--------+-----------+------------+
+|  1 | joe    |   45454.5 | 2020-02-02 |
+|  2 | donald |   4541.25 | 2021-02-03 |
+|  3 | mukesh | 4545255.5 | 2020-05-25 |
++----+--------+-----------+------------+
+3 rows in set (0.03 sec)
