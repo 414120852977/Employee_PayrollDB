@@ -23,3 +23,36 @@ mysql> show databases;
 mysql> use payroll_service;
 Database changed
 mysql>
+
+Use case 2 :Ability to create a employee payroll table in the payroll service database to
+manage employee payrolls.
+
+
+mysql> use payroll_service;
+Database changed
+mysql> create table employee_payroll (
+    -> id INT NOT NULL AUTO_INCREMENT,
+    -> name varchar(150),
+    -> salary double NOT NULL,
+    -> start date DATE NOT NULL,
+    -> PRIMARY KEY (id) );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATE NOT NULL,
+PRIMARY KEY (id) )' at line 5
+mysql> create table employee_payroll (
+    -> id int NOT NULL AUTO_INCREMENT,
+    -> name varchar(150),
+    -> salary double NOT NULL,
+    -> start  DATE NOT NULL,
+    -> PRIMARY KEY (id) );
+Query OK, 0 rows affected (2.36 sec)
+
+mysql> describe employee_payroll;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| id     | int          | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(150) | YES  |     | NULL    |                |
+| salary | double       | NO   |     | NULL    |                |
+| start  | date         | NO   |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+4 rows in set (0.27 sec)
