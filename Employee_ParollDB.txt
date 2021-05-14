@@ -124,3 +124,27 @@ mysql> select * from employee_payroll;
 |  3 | mukesh | 4545255.5 | 2020-05-25 |
 +----+--------+-----------+------------+
 3 rows in set (0.03 sec)
+Use case 5:
+Ability to retrieve salary data for a particular employee as well as all employees who have
+joined in a particular data range from the payroll service database.
+
+mysql> select * from employee_payroll;
++----+--------+-----------+------------+
+| id | name   | salary    | start      |
++----+--------+-----------+------------+
+|  1 | joe    |   45454.5 | 2020-02-02 |
+|  2 | donald |   4541.25 | 2021-02-03 |
+|  3 | mukesh | 4545255.5 | 2020-05-25 |
++----+--------+-----------+------------+
+3 rows in set (0.03 sec)
+
+mysql> SELECT salary FROM employee_payroll
+    -> WHERE name = 'joe’;
+    '> ^C
+mysql> select salary From employee_payroll where name = 'joe';
++---------+
+| salary  |
++---------+
+| 45454.5 |
++---------+
+1 row in set (0.14 sec)
