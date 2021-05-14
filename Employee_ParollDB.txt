@@ -351,6 +351,111 @@ mysql> select * from employee_payroll;
 
 mysql>
 
+use case 9 :
+Ability to extend employee_payroll table to have Basic Pay, Deductions, Taxable Pay,
+Income Tax, Net Pay
+
+mysql> select * from employee_payroll;
+ERROR 1046 (3D000): No database selected
+mysql> use payroll_service;
+Database changed
+mysql> select * from employee_payroll;
++----+--------+---------+---------+------------+--------+-----------+------------+
+| id | name   | phoneNo | address | department | gender | salary    | start      |
++----+--------+---------+---------+------------+--------+-----------+------------+
+|  1 | joe    |       0 | tbd     |            | M      |   45454.5 | 2020-02-02 |
+|  2 | donald |       0 | tbd     |            | M      |   4541.25 | 2021-02-03 |
+|  3 | mukesh |       0 | tbd     |            | M      | 4545255.5 | 2020-05-25 |
+|  4 | lissa  |       0 | tbd     |            | F      |   4541.25 | 2021-02-03 |
++----+--------+---------+---------+------------+--------+-----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll change 'salary' to 'basicpay';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''salary' to 'basicpay'' at line 1
+mysql> alter table employee_payroll rename column 'salary' to 'basicpay';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''salary' to 'basicpay'' at line 1
+mysql> alter table employee_payroll rename column 'salary' TO 'basicpay';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''salary' TO 'basicpay'' at line 1
+mysql> ALTER TABLE  employee_payroll RENAME COLUMN "salary" TO "basicpay";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"salary" TO "basicpay"' at line 1
+mysql> ALTER TABLE  employee_payroll RENAME COLUMN salary TO basicpay;
+Query OK, 0 rows affected (0.90 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+---------+---------+------------+--------+-----------+------------+
+| id | name   | phoneNo | address | department | gender | basicpay  | start      |
++----+--------+---------+---------+------------+--------+-----------+------------+
+|  1 | joe    |       0 | tbd     |            | M      |   45454.5 | 2020-02-02 |
+|  2 | donald |       0 | tbd     |            | M      |   4541.25 | 2021-02-03 |
+|  3 | mukesh |       0 | tbd     |            | M      | 4545255.5 | 2020-05-25 |
+|  4 | lissa  |       0 | tbd     |            | F      |   4541.25 | 2021-02-03 |
++----+--------+---------+---------+------------+--------+-----------+------------+
+4 rows in set (0.05 sec)
+
+mysql> alter table employee_payroll ADD deductions int not null after basicpay;
+Query OK, 0 rows affected (1.61 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+---------+---------+------------+--------+-----------+------------+------------+
+| id | name   | phoneNo | address | department | gender | basicpay  | deductions | start      |
++----+--------+---------+---------+------------+--------+-----------+------------+------------+
+|  1 | joe    |       0 | tbd     |            | M      |   45454.5 |          0 | 2020-02-02 |
+|  2 | donald |       0 | tbd     |            | M      |   4541.25 |          0 | 2021-02-03 |
+|  3 | mukesh |       0 | tbd     |            | M      | 4545255.5 |          0 | 2020-05-25 |
+|  4 | lissa  |       0 | tbd     |            | F      |   4541.25 |          0 | 2021-02-03 |
++----+--------+---------+---------+------------+--------+-----------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll ADD taxable pay int not null after deductions;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'pay int not null after deductions' at line 1
+mysql> alter table employee_payroll ADD taxablepay int not null after deductions;
+Query OK, 0 rows affected (0.66 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+---------+---------+------------+--------+-----------+------------+------------+------------+
+| id | name   | phoneNo | address | department | gender | basicpay  | deductions | taxablepay | start      |
++----+--------+---------+---------+------------+--------+-----------+------------+------------+------------+
+|  1 | joe    |       0 | tbd     |            | M      |   45454.5 |          0 |          0 | 2020-02-02 |
+|  2 | donald |       0 | tbd     |            | M      |   4541.25 |          0 |          0 | 2021-02-03 |
+|  3 | mukesh |       0 | tbd     |            | M      | 4545255.5 |          0 |          0 | 2020-05-25 |
+|  4 | lissa  |       0 | tbd     |            | F      |   4541.25 |          0 |          0 | 2021-02-03 |
++----+--------+---------+---------+------------+--------+-----------+------------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll ADD income_tax int not null after taxablepay;
+Query OK, 0 rows affected (0.62 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+---------+---------+------------+--------+-----------+------------+------------+------------+------------+
+| id | name   | phoneNo | address | department | gender | basicpay  | deductions | taxablepay | income_tax | start      |
++----+--------+---------+---------+------------+--------+-----------+------------+------------+------------+------------+
+|  1 | joe    |       0 | tbd     |            | M      |   45454.5 |          0 |          0 |          0 | 2020-02-02 |
+|  2 | donald |       0 | tbd     |            | M      |   4541.25 |          0 |          0 |          0 | 2021-02-03 |
+|  3 | mukesh |       0 | tbd     |            | M      | 4545255.5 |          0 |          0 |          0 | 2020-05-25 |
+|  4 | lissa  |       0 | tbd     |            | F      |   4541.25 |          0 |          0 |          0 | 2021-02-03 |
++----+--------+---------+---------+------------+--------+-----------+------------+------------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll ADD Net_Pay int not null after income_tax;
+Query OK, 0 rows affected (1.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+---------+---------+------------+--------+-----------+------------+------------+------------+---------+------------+
+| id | name   | phoneNo | address | department | gender | basicpay  | deductions | taxablepay | income_tax | Net_Pay | start      |
++----+--------+---------+---------+------------+--------+-----------+------------+------------+------------+---------+------------+
+|  1 | joe    |       0 | tbd     |            | M      |   45454.5 |          0 |          0 |          0 |       0 | 2020-02-02 |
+|  2 | donald |       0 | tbd     |            | M      |   4541.25 |          0 |          0 |          0 |       0 | 2021-02-03 |
+|  3 | mukesh |       0 | tbd     |            | M      | 4545255.5 |          0 |          0 |          0 |       0 | 2020-05-25 |
+|  4 | lissa  |       0 | tbd     |            | F      |   4541.25 |          0 |          0 |          0 |       0 | 2021-02-03 |
++----+--------+---------+---------+------------+--------+-----------+------------+------------+------------+---------+------------+
+4 rows in set (0.00 sec)
+
+mysql>
 
 
 
