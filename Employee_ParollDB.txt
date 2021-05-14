@@ -255,6 +255,101 @@ mysql> select COUNT(*) from employee_payroll where gender = 'M';
 1 row in set (0.00 sec)
 
 
+use case 8 :
+Ability to extend employee_payroll data to store employee information like employee phone, address
+and department.
+
+mysql> select * from employee_payroll;
++----+--------+--------+-----------+------------+
+| id | name   | gender | salary    | start      |
++----+--------+--------+-----------+------------+
+|  1 | joe    | M      |   45454.5 | 2020-02-02 |
+|  2 | donald | M      |   4541.25 | 2021-02-03 |
+|  3 | mukesh | M      | 4545255.5 | 2020-05-25 |
+|  4 | lissa  | F      |   4541.25 | 2021-02-03 |
++----+--------+--------+-----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll ADD phoneNo INT not null after name;
+Query OK, 0 rows affected (2.95 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+---------+--------+-----------+------------+
+| id | name   | phoneNo | gender | salary    | start      |
++----+--------+---------+--------+-----------+------------+
+|  1 | joe    |       0 | M      |   45454.5 | 2020-02-02 |
+|  2 | donald |       0 | M      |   4541.25 | 2021-02-03 |
+|  3 | mukesh |       0 | M      | 4545255.5 | 2020-05-25 |
+|  4 | lissa  |       0 | F      |   4541.25 | 2021-02-03 |
++----+--------+---------+--------+-----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll ADD address varchar(255) NOT NULL after phoneNo;
+Query OK, 0 rows affected (3.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+---------+---------+--------+-----------+------------+
+| id | name   | phoneNo | address | gender | salary    | start      |
++----+--------+---------+---------+--------+-----------+------------+
+|  1 | joe    |       0 |         | M      |   45454.5 | 2020-02-02 |
+|  2 | donald |       0 |         | M      |   4541.25 | 2021-02-03 |
+|  3 | mukesh |       0 |         | M      | 4545255.5 | 2020-05-25 |
+|  4 | lissa  |       0 |         | F      |   4541.25 | 2021-02-03 |
++----+--------+---------+---------+--------+-----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> drop address;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'address' at line 1
+mysql> alter table employee_payroll DROP address;
+Query OK, 0 rows affected (1.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+---------+--------+-----------+------------+
+| id | name   | phoneNo | gender | salary    | start      |
++----+--------+---------+--------+-----------+------------+
+|  1 | joe    |       0 | M      |   45454.5 | 2020-02-02 |
+|  2 | donald |       0 | M      |   4541.25 | 2021-02-03 |
+|  3 | mukesh |       0 | M      | 4545255.5 | 2020-05-25 |
+|  4 | lissa  |       0 | F      |   4541.25 | 2021-02-03 |
++----+--------+---------+--------+-----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll ADD address varchar(255) default = 'default' after phoneNo;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= 'default' after phoneNo' at line 1
+mysql> alter table employee_payroll ADD address varchar(255) DEFAULT 'tbd' after phoneNo;
+Query OK, 0 rows affected (1.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+---------+---------+--------+-----------+------------+
+| id | name   | phoneNo | address | gender | salary    | start      |
++----+--------+---------+---------+--------+-----------+------------+
+|  1 | joe    |       0 | tbd     | M      |   45454.5 | 2020-02-02 |
+|  2 | donald |       0 | tbd     | M      |   4541.25 | 2021-02-03 |
+|  3 | mukesh |       0 | tbd     | M      | 4545255.5 | 2020-05-25 |
+|  4 | lissa  |       0 | tbd     | F      |   4541.25 | 2021-02-03 |
++----+--------+---------+---------+--------+-----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll ADD department varchar(40) NOT NULL after address;
+Query OK, 0 rows affected (2.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+---------+---------+------------+--------+-----------+------------+
+| id | name   | phoneNo | address | department | gender | salary    | start      |
++----+--------+---------+---------+------------+--------+-----------+------------+
+|  1 | joe    |       0 | tbd     |            | M      |   45454.5 | 2020-02-02 |
+|  2 | donald |       0 | tbd     |            | M      |   4541.25 | 2021-02-03 |
+|  3 | mukesh |       0 | tbd     |            | M      | 4545255.5 | 2020-05-25 |
+|  4 | lissa  |       0 | tbd     |            | F      |   4541.25 | 2021-02-03 |
++----+--------+---------+---------+------------+--------+-----------+------------+
+4 rows in set (0.06 sec)
+
+mysql>
 
 
 
