@@ -111,3 +111,16 @@ mysql> select * from employee_payroll;
 |  3 | mukesh | 4545255.5 | 2020-05-25 |
 +----+--------+-----------+------------+
 3 rows in set (0.03 sec)
+
+Use case 4 :Ability to retrieve all the employee payroll data that is added to payroll service
+Database.
+
+mysql> select * from employee_payroll;
++----+--------+-----------+------------+
+| id | name   | salary    | start      |
++----+--------+-----------+------------+
+|  1 | joe    |   45454.5 | 2020-02-02 |
+|  2 | donald |   4541.25 | 2021-02-03 |
+|  3 | mukesh | 4545255.5 | 2020-05-25 |
++----+--------+-----------+------------+
+3 rows in set (0.03 sec)
