@@ -148,3 +148,44 @@ mysql> select salary From employee_payroll where name = 'joe';
 | 45454.5 |
 +---------+
 1 row in set (0.14 sec)
+Use case 6:Ability to add Gender to Employee Payroll Table and Update the Rows to
+reflect the correct Employee Gender.
+mysql> alter table employee_payroll ADD gender char(1) after name;
+Query OK, 0 rows affected (3.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+--------+-----------+------------+
+| id | name   | gender | salary    | start      |
++----+--------+--------+-----------+------------+
+|  1 | joe    | NULL   |   45454.5 | 2020-02-02 |
+|  2 | donald | NULL   |   4541.25 | 2021-02-03 |
+|  3 | mukesh | NULL   | 4545255.5 | 2020-05-25 |
++----+--------+--------+-----------+------------+
+3 rows in set (0.00 sec)
+
+mysql>
+
+mysql> select * from employee_payroll;
++----+--------+--------+-----------+------------+
+| id | name   | gender | salary    | start      |
++----+--------+--------+-----------+------------+
+|  1 | joe    | NULL   |   45454.5 | 2020-02-02 |
+|  2 | donald | NULL   |   4541.25 | 2021-02-03 |
+|  3 | mukesh | NULL   | 4545255.5 | 2020-05-25 |
++----+--------+--------+-----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> update employee_payroll set gender = 'M' where name = 'mukesh'or name = 'joe';
+Query OK, 2 rows affected (0.20 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+--------+-----------+------------+
+| id | name   | gender | salary    | start      |
++----+--------+--------+-----------+------------+
+|  1 | joe    | M      |   45454.5 | 2020-02-02 |
+|  2 | donald | NULL   |   4541.25 | 2021-02-03 |
+|  3 | mukesh | M      | 4545255.5 | 2020-05-25 |
++----+--------+--------+-----------+------------+
+3 rows in set (0.04 sec)
