@@ -457,5 +457,55 @@ mysql> select * from employee_payroll;
 
 mysql>
 
+use case 10:
+Ability to make Terissa as part of Sales and Marketing Department.
+
+
+mysql> select * from employee_payroll;
++----+--------+---------+---------+------------+--------+-----------+------------+------------+------------+---------+------------+
+| id | name   | phoneNo | address | department | gender | basicpay  | deductions | taxablepay | income_tax | Net_Pay | start      |
++----+--------+---------+---------+------------+--------+-----------+------------+------------+------------+---------+------------+
+|  1 | joe    |       0 | tbd     |            | M      |   45454.5 |          0 |          0 |          0 |       0 | 2020-02-02 |
+|  2 | donald |       0 | tbd     |            | M      |   4541.25 |          0 |          0 |          0 |       0 | 2021-02-03 |
+|  3 | mukesh |       0 | tbd     |            | M      | 4545255.5 |          0 |          0 |          0 |       0 | 2020-05-25 |
+|  4 | lissa  |       0 | tbd     |            | F      |   4541.25 |          0 |          0 |          0 |       0 | 2021-02-03 |
++----+--------+---------+---------+------------+--------+-----------+------------+------------+------------+---------+------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employee_payroll (name,phoneNo,address,depertment,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start) values
+    -> ("terissa",455545,"545454","sales","F",10000,2000,1800,200,6000,'2020-02-03')
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 3
+mysql> insert into employee_payroll (name,phoneNo,address,depertment,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start) values
+    -> ("terissa",455545,"545454","sales","F",10000,2000,1800,200,6000,'2020-02-03');
+ERROR 1054 (42S22): Unknown column 'depertment' in 'field list'
+mysql> insert into employee_payroll (name,phoneNo,address,department,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start) values
+    -> ("terissa",455545,"545454","sales","F",10000,2000,1800,200,6000,'2020-02-03');
+Query OK, 1 row affected (0.18 sec)
+
+mysql> insert into employee_payroll (name,phoneNo,address,depertment,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start) values
+    -> ("terissa",455545,"545454","marketing","F",10000,2000,1800,200,6000,'2020-02-03');
+ERROR 1054 (42S22): Unknown column 'depertment' in 'field list'
+mysql> insert into employee_payroll (name,phoneNo,address,depertment,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start) values
+    -> insert into employee_payroll (name,phoneNo,address,depertment,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start) value^C
+mysql> insert into employee_payroll (name,phoneNo,address,department,gender,basicpay,deductions,taxablepay,income_tax,Net_Pay,start) values
+    -> ("terissa",455545,"545454","marketing","F",10000,2000,1800,200,6000,'2020-02-03');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from employee_payroll;
++----+---------+---------+---------+------------+--------+-----------+------------+------------+------------+---------+------------+
+| id | name    | phoneNo | address | department | gender | basicpay  | deductions | taxablepay | income_tax | Net_Pay | start      |
++----+---------+---------+---------+------------+--------+-----------+------------+------------+------------+---------+------------+
+|  1 | joe     |       0 | tbd     |            | M      |   45454.5 |          0 |          0 |          0 |       0 | 2020-02-02 |
+|  2 | donald  |       0 | tbd     |            | M      |   4541.25 |          0 |          0 |          0 |       0 | 2021-02-03 |
+|  3 | mukesh  |       0 | tbd     |            | M      | 4545255.5 |          0 |          0 |          0 |       0 | 2020-05-25 |
+|  4 | lissa   |       0 | tbd     |            | F      |   4541.25 |          0 |          0 |          0 |       0 | 2021-02-03 |
+|  5 | terissa |  455545 | 545454  | sales      | F      |     10000 |       2000 |       1800 |        200 |    6000 | 2020-02-03 |
+|  6 | terissa |  455545 | 545454  | marketing  | F      |     10000 |       2000 |       1800 |        200 |    6000 | 2020-02-03 |
++----+---------+---------+---------+------------+--------+-----------+------------+------------+------------+---------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
 
 
